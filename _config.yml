@@ -1,5 +1,6 @@
 source: help
 include: [help]
+exclude: [src, README.md]
 defaults:
   -
     scope:
