@@ -1,5 +1,5 @@
 source: help
-keep_files: _site
+include: [help]
 defaults:
   -
     scope:
