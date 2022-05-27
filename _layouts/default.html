@@ -651,9 +651,8 @@
 		}
 	</style>
 	<style>
-		
 	</style>
-	<link rel="stylesheet" href="./assets/css/styles.css">
+	<link rel="stylesheet" href={{ "/assets/css/styles.css" | relative_url }}>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.1.1/tocbot.css">
 </head>
 
@@ -735,6 +734,14 @@
 							<br/>
 							<br/>
 
+							site.static_files {{ site.static_files }}
+
+							{{ site }}
+
+							<br/>
+							<br/>
+
+
 							{{ content }}
 
 						</div>
@@ -757,7 +764,7 @@
 		ga('create', 'UA-86007127-1', 'auto');
 		ga('send', 'pageview');
 	</script>
-	<script src="./assets/js/main.js"></script>
+	<script src={{"/assets/js/main.js" | relative_url }}></script>
 </body>
 
 </html>
