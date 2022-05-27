@@ -734,7 +734,26 @@
 							<br/>
 							<br/>
 
-							site.static_files {{ site.static_files }}
+							site.pages:
+							<br/><br/>
+							{% for page in site.pages %}
+								{{ page.name}} | {{ page.path }} | {{ page.url }} <br/><br/>
+							{% endfor %}
+
+							{% for page in site.pages %}
+								<div class="item">
+								<h3><a href="{{ page.url }}">
+									{{ page.title }}
+								</a></h3>
+
+								<p>{{page.description}}</p>  
+								</div>
+							{% endfor %}
+
+							<br/>
+							<br/>
+
+							<!-- site.html_pages {{ site.html_pages }} -->
 
 							{{ site }}
 
