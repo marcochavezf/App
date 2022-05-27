@@ -1,5 +1,5 @@
-include: [assets/css, assets/js/main.js]
-keep_files: [assets/css, assets/js/main.js]
+include: [assets/css, assets/js/main.js, /assets/js/main.js, ./assets/js/main.js]
+keep_files: [assets/css, assets/js/main.js, /assets/css, /assets/js/main.js, ./assets/js/main.js]
 defaults:
   -
     scope:
