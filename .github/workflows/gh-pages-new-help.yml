@@ -1,10 +1,9 @@
-name: GitHub Pages
+name: NewHelp deployment
 
 on:
   push:
     branches:
-      - main  # Set a branch name to trigger deployment
-      - test-new-help
+      - main
   pull_request:
 
 jobs:
@@ -17,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Deploy
+      - name: Deploy NewHelp
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
