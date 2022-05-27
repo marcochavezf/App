@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test-new-help
   pull_request:
 
 jobs:
