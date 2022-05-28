@@ -29,7 +29,7 @@ articlePages.forEach(page => {
     })
 });
 
-function appendArticle(currentPath, content, htmlElement, level) {
+function appendArticle(currentPath, content, parentUL, parentLI) {
     Object.keys(content).sort().forEach(path => {
         currentPath += path + '-';
 
@@ -38,13 +38,23 @@ function appendArticle(currentPath, content, htmlElement, level) {
         if (!li) {
             li = document.createElement('li');
             li.setAttribute("id", currentPath+'li');
+            parentUL.appendChild(li);
+
+            if (path === 'index.md') {
+                const oldSpan = parentLI.getElementsByClassName('caret')[0];
+                const a = document.createElement('a');
+                a.setAttribute('class', 'caret');
+                a.appendChild(document.createTextNode(oldSpan.innerText));
+                oldSpan.replaceWith(a);
+                return;
+            }
+
             const span = document.createElement('span');
             span.appendChild(document.createTextNode(parseName(path)));
-            if (level === 0) {
+            if (!parentLI) {
                 span.setAttribute('class', 'caret');
             }
             li.appendChild(span);
-            htmlElement.appendChild(li);
         }
 
         // Files are the leaf nodes of the content
@@ -57,28 +67,28 @@ function appendArticle(currentPath, content, htmlElement, level) {
         if (!ul) {
             ul = document.createElement('ul');
             ul.setAttribute('id', currentPath+'ul');
-            if (level === 0) {
-                ul.setAttribute('class', 'nested-treeview');
-            }
             li.appendChild(ul);
+            // if (level === 0) {
+            //     ul.setAttribute('class', 'nested-treeview');
+            // }
         }
 
         // Iterate the folder content
-        appendArticle(currentPath, content[path], ul, level+1);
+        appendArticle(currentPath, content[path], ul, li);
     });
 }
 
-appendArticle('', articles['articles'], document.getElementById('main-navigation-tree'), 0);
+appendArticle('', articles['articles'], document.getElementById('main-navigation-tree'), null);
 
 console.log(articlePages);
 console.log(articles);
 
-const toggler = document.getElementsByClassName('caret');
-for (let i = 0; i < toggler.length; i++) {
-    toggler[i].addEventListener('click', function() {
-        this.parentElement
-            .querySelector('.nested-treeview')
-            .classList.toggle('active-treeview');
-        this.classList.toggle('caret-down');
-    });
-}
+// const toggler = document.getElementsByClassName('caret');
+// for (let i = 0; i < toggler.length; i++) {
+//     toggler[i].addEventListener('click', function() {
+//         this.parentElement
+//             .querySelector('.nested-treeview')
+//             .classList.toggle('active-treeview');
+//         this.classList.toggle('caret-down');
+//     });
+// }
