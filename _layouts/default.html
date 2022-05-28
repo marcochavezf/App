@@ -722,12 +722,6 @@
 				<div class="content-card">
 					<div class="content-card__inner">
 						<div class="article-toc-content">
-							dir: {{ page.dir }}
-							<br/>
-							path: {{ page.path }}
-							<br/>
-							url: {{ page.url }}
-							<br/>
 
 							{{ page.name | remove: '.md' | split: "-" |  join: " " }}
 
@@ -736,26 +730,12 @@
 
 							site.pages:
 							<br/><br/>
-							{% for page in site.pages %}
-								{{ page.name}} | {{ page.path }} | {{ page.url }} <br/><br/>
+							{% assign ordered_pages = site.pages | sort: 'order' %}
+							{% for page in ordered_pages %}
+								{{ page.order }} | {{ page.name}} | {{ page.path }} | {{ page.url }} <br/><br/>
 							{% endfor %}
 
-							{% for page in site.pages %}
-								<div class="item">
-								<h3><a href="{{ page.url }}">
-									{{ page.title }}
-								</a></h3>
-
-								<p>{{page.description}}</p>  
-								</div>
-							{% endfor %}
-
-							<br/>
-							<br/>
-
-							<!-- site.html_pages {{ site.html_pages }} -->
-
-							{{ site }}
+							<!-- site: {{ site | jsonify }} -->
 
 							<br/>
 							<br/>
@@ -782,6 +762,7 @@
 		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 		ga('create', 'UA-86007127-1', 'auto');
 		ga('send', 'pageview');
+		window.pages = {{ site.pages | jsonify }};
 	</script>
 	<script src={{"/assets/js/main.js" | relative_url }}></script>
 </body>

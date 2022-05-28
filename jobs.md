@@ -1,5 +1,6 @@
 ---
 layout: default
+order: 1.5
 ---
 
 # Bedrock::Jobs -- Rock solid job queuing
