@@ -10,7 +10,6 @@ if (tocbot) {
     });
 }
 
-
 const articles = {};
 
 function parseName(name) {
@@ -31,10 +30,10 @@ articlePages.forEach(page => {
 
 function appendArticle(currentPath, content, parentUL, parentLI) {
     Object.keys(content).sort().forEach(path => {
-        currentPath += path + '-';
+        currentPath += '/' + path ;
 
         // Append a LI element with text (could be either a folder or a file)
-        let li = document.getElementById(currentPath+'li');
+        let li = document.getElementById(currentPath+'-li');
         if (!li) {
             li = document.createElement('li');
             li.setAttribute("id", currentPath+'li');
@@ -44,6 +43,7 @@ function appendArticle(currentPath, content, parentUL, parentLI) {
                 const oldSpan = parentLI.getElementsByClassName('caret')[0];
                 const a = document.createElement('a');
                 a.setAttribute('class', 'caret');
+                a.setAttribute('href', '/articles' + currentPath);
                 a.appendChild(document.createTextNode(oldSpan.innerText));
                 oldSpan.replaceWith(a);
                 return;
@@ -68,9 +68,6 @@ function appendArticle(currentPath, content, parentUL, parentLI) {
             ul = document.createElement('ul');
             ul.setAttribute('id', currentPath+'ul');
             li.appendChild(ul);
-            // if (level === 0) {
-            //     ul.setAttribute('class', 'nested-treeview');
-            // }
         }
 
         // Iterate the folder content
