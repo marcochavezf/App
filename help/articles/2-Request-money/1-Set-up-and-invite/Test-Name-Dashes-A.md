@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+<!-- {{page}}
+{{page.name}} -->
+
 
 # Section 1 {.button}
 <!-- ========= -->

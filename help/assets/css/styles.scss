@@ -3,8 +3,8 @@
 .current {
     color: green;
 }
-body {
-    color: red;
+.toc {
+    color: white;
 }
 
 .card {
@@ -39,7 +39,7 @@ body {
 }
 
 /////
-.main-navigation-tree {
+#main-navigation-tree {
     ul {
         margin-left: 30px;
     }
