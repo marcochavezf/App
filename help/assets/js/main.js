@@ -10,6 +10,69 @@ if (tocbot) {
     });
 }
 
+
+const articles = {};
+
+function parseName(name) {
+    return name.replace(/\d{1}-/g, '').replace('.md', '').replaceAll('-', ' ');
+}
+
+
+const articlePages = window.pages
+    .filter(page => page.dir.includes('/articles/'))
+    .map(page => Object.assign(page, { pathArray: page.path.split('/') }))
+
+articlePages.forEach(page => {
+    let lastContainer = articles;
+    page.pathArray.forEach(path => {
+        lastContainer = lastContainer[path] = lastContainer[path] || {};
+    })
+});
+
+function appendArticle(currentPath, content, htmlElement, level) {
+    Object.keys(content).sort().forEach(path => {
+        currentPath += path + '-';
+
+        // Append a LI element with text (could be either a folder or a file)
+        let li = document.getElementById(currentPath+'li');
+        if (!li) {
+            li = document.createElement('li');
+            li.setAttribute("id", currentPath+'li');
+            const span = document.createElement('span');
+            span.appendChild(document.createTextNode(parseName(path)));
+            if (level === 0) {
+                span.setAttribute('class', 'caret');
+            }
+            li.appendChild(span);
+            htmlElement.appendChild(li);
+        }
+
+        // Files are the leaf nodes of the content
+        if (path.includes('.md')) {
+            return;
+        }
+
+        // Create a UL element for folders if it doesn't exist
+        let ul = document.getElementById(currentPath+'ul');
+        if (!ul) {
+            ul = document.createElement('ul');
+            ul.setAttribute('id', currentPath+'ul');
+            if (level === 0) {
+                ul.setAttribute('class', 'nested-treeview');
+            }
+            li.appendChild(ul);
+        }
+
+        // Iterate the folder content
+        appendArticle(currentPath, content[path], ul, level+1);
+    });
+}
+
+appendArticle('', articles['articles'], document.getElementById('main-navigation-tree'), 0);
+
+console.log(articlePages);
+console.log(articles);
+
 const toggler = document.getElementsByClassName('caret');
 for (let i = 0; i < toggler.length; i++) {
     toggler[i].addEventListener('click', function() {
@@ -19,43 +82,3 @@ for (let i = 0; i < toggler.length; i++) {
         this.classList.toggle('caret-down');
     });
 }
-
-const articles = {};
-function parseName(name) {
-    return name.replace('.md', '').replace('-', '');
-}
-
-const ulMainNavTree = document.getElementById('main-navigation-tree');
-
-const articlePages = window.pages
-    .filter(page => page.dir.includes('/articles/'))
-    .map(page => Object.assign(page, { pathArray: page.path.split('/') }))
-
-articlePages.forEach(page => {
-    let lastContainer = ulMainNavTree;
-    let currentPath = '';
-    page.pathArray.forEach(path => {
-        currentPath += path + '-';
-        let li = document.getElementById(currentPath+'li');
-        if (!li) {
-            li = document.createElement("LI");
-            li.setAttribute("id", currentPath+'li');
-            li.appendChild(document.createTextNode(path));
-            lastContainer.appendChild(li);
-        }
-
-        if (!path.includes('.md')) {
-            if (document.getElementById(currentPath+'ul')) {
-                lastContainer = document.getElementById(currentPath+'ul');
-            } else {
-                const newContainer = document.createElement("UL");
-                newContainer.setAttribute("id", currentPath+'ul');
-                li.appendChild(newContainer);
-                lastContainer = newContainer;
-            }
-        }
-    });
-});
-
-console.log(articlePages);
-console.log(articles);
