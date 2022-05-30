@@ -75,10 +75,10 @@ function appendArticle(currentPath, content, parentUL, parentLI) {
     });
 }
 
-appendArticle('', articles['articles'], document.getElementById('main-navigation-tree'), null);
+// appendArticle('', articles['articles'], document.getElementById('main-navigation-tree'), null);
 
-console.log(articlePages);
-console.log(articles);
+// console.log(articlePages);
+// console.log(articles);
 
 // const toggler = document.getElementsByClassName('caret');
 // for (let i = 0; i < toggler.length; i++) {

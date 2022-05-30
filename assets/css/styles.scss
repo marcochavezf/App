@@ -39,14 +39,14 @@
 }
 
 /////
-#main-navigation-tree {
+.main-navigation-tree {
     ul {
         margin-left: 30px;
     }
 
-    .nested-treeview {
-        display: none;
-    }
+    // .nested-treeview {
+    //     display: none;
+    // }
 
     .active-treeview {
         display: block;
