@@ -1,6 +1,6 @@
 ---
 layout: default
-order: 1
+lhn_content: 'send-money'
 ---
 # Test Index
 <!-- ========= -->

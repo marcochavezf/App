@@ -1,5 +1,4 @@
 ---
-use_main_navigation_tree: true
 ---
 # Section 1
 <!-- ========= -->

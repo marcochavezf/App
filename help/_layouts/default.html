@@ -702,13 +702,20 @@
 
 
 				<div class="lhn">
-					{% if page.use_main_navigation_tree %}
-						{% include main-navigation-tree.html %}
+					<span><a href={{ "/index.html" | relative_url }}>Home</a></span>
+
+					{% case page.lhn_content %}
+					{% when "homepage" %}
+						{% include home-navigation-tree.html %}
+					{% when "request-money" %}
+						{% include request-money-navigation-tree.html %}
+					{% when "send-money" %}
+						{% include send-money-navigation-tree.html %}
 					{% else %}
 						<span class="left-caret">Back</span>
 						<span>In this article</span>
 						<div class="article-toc"></div>
-					{% endif %}
+					{% endcase %}
 				</div>
 
 
@@ -728,12 +735,12 @@
 							<br/>
 							<br/>
 
-							site.pages:
+							<!-- site.pages:
 							<br/><br/>
 							{% assign ordered_pages = site.pages | sort: 'order' %}
 							{% for page in ordered_pages %}
 								{{ page.order }} | {{ page.name}} | {{ page.path }} | {{ page.url }} <br/><br/>
-							{% endfor %}
+							{% endfor %} -->
 
 							<!-- site: {{ site | jsonify }} -->
 
